@@ -1,10 +1,13 @@
 package com.example.addressbookprogramminglab;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
@@ -44,9 +47,10 @@ public class HelloApplication extends Application {
         root.setLeft(tabPane);
 
         TilePane entryPane = getEntryPane();
-
         entryTab.setContent(entryPane);
 
+        TableView listPane = getListPane();
+        listTab.setContent(listPane);
 
         stage.setScene(scene);
         stage.show();
@@ -98,6 +102,42 @@ public class HelloApplication extends Application {
         entryPane.getChildren().add(buttonHBox);
 
         return entryPane;
+    }
+
+    TableView getListPane(){
+        ObservableList<Contact> data =
+                FXCollections.observableArrayList(
+                        new Contact("Name1", "001", "Address 1", "Country 1"),
+                        new Contact("Name2", "002", "Address 2", "Country 2"),
+                        new Contact("Name3", "003", "Address 3", "Country 3")
+                );
+
+        TableView listPane = new TableView();
+
+        TableColumn nameColumn = new TableColumn("Name");
+        TableColumn numberColumn = new TableColumn("Number");
+        TableColumn addressColumn = new TableColumn("Address");
+        TableColumn countryColumn = new TableColumn("Country");
+
+        listPane.setItems(data);
+
+        listPane.getColumns().addAll(nameColumn, numberColumn, addressColumn, countryColumn);
+
+        nameColumn.setCellValueFactory(
+                new PropertyValueFactory<Contact,String>("name")
+        );
+        numberColumn.setCellValueFactory(
+                new PropertyValueFactory<Contact,String>("number")
+        );
+        addressColumn.setCellValueFactory(
+                new PropertyValueFactory<Contact,String>("address")
+        );
+        countryColumn.setCellValueFactory(
+                new PropertyValueFactory<Contact,String>("country")
+        );
+
+
+        return listPane;
     }
 
     public static void main(String[] args) {

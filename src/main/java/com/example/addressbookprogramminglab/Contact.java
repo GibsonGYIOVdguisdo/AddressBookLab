@@ -8,6 +8,13 @@ public class Contact {
     SimpleStringProperty address;
     SimpleStringProperty country;
 
+    Contact(String name, String number, String address, String country){
+        this.name = new SimpleStringProperty(name);
+        this.number = new SimpleStringProperty(number);
+        this.address = new SimpleStringProperty(address);
+        this.country = new SimpleStringProperty(country);
+    }
+
     public String getAddress() {
         return address.get();
     }
@@ -31,7 +38,7 @@ public class Contact {
     public void setCountry(String country) {
         this.country.set(country);
     }
-    
+
     public void setName(String name) {
         this.name.set(name);
     }
