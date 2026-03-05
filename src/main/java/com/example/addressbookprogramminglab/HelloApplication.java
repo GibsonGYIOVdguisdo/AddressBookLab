@@ -3,15 +3,11 @@ package com.example.addressbookprogramminglab;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -51,6 +47,9 @@ public class HelloApplication extends Application {
 
         TableView listPane = getListPane();
         listTab.setContent(listPane);
+
+        TilePane searchPane = getSearchPane();
+        searchTab.setContent(searchPane);
 
         stage.setScene(scene);
         stage.show();
@@ -138,6 +137,33 @@ public class HelloApplication extends Application {
 
 
         return listPane;
+    }
+
+    TilePane getSearchPane(){
+        TilePane searchPane = new TilePane();
+        TilePane searchInputsPane = new TilePane();
+        TableView contactListPane = new TableView();
+
+        searchPane.setPrefColumns(1);
+        searchInputsPane.setPrefColumns(2);
+
+        Label nameLabel = new Label("Name: ");
+        Label numberLabel = new Label("Number: ");
+        TextField nameTextField = new TextField();
+        TextField numberTextField = new TextField();
+        Button clearButton = new Button("Clear");
+        Button searchButton = new Button("Search");
+
+        searchInputsPane.getChildren().addAll(
+                nameLabel,
+                nameTextField,
+                numberLabel,
+                numberTextField,
+                clearButton,
+                searchButton
+        );
+        searchPane.getChildren().addAll(searchInputsPane, contactListPane);
+        return searchPane;
     }
 
     public static void main(String[] args) {
