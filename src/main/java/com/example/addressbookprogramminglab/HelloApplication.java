@@ -3,16 +3,22 @@ package com.example.addressbookprogramminglab;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    private ContactsModel contacts;
+
     enum Country {
         UK,
         US,
@@ -22,6 +28,10 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        this.contacts = new ContactsModel();
+
+        this.contacts.addContact(new Contact("Name3", "003", "Address 3", "Country 3"));
+
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root);
         stage.setTitle("Address Book");
@@ -86,6 +96,13 @@ public class HelloApplication extends Application {
         HBox buttonHBox = new HBox();
 
         Button clearButton = new Button("Clear");
+        clearButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                clearText(inputPane);
+            }
+        });
+
         Button editButton = new Button("Edit");
         Button addButton = new Button("Add");
         Button deleteButton = new Button("Delete");
@@ -104,12 +121,6 @@ public class HelloApplication extends Application {
     }
 
     TableView getListPane(){
-        ObservableList<Contact> data =
-                FXCollections.observableArrayList(
-                        new Contact("Name1", "001", "Address 1", "Country 1"),
-                        new Contact("Name2", "002", "Address 2", "Country 2"),
-                        new Contact("Name3", "003", "Address 3", "Country 3")
-                );
 
         TableView listPane = new TableView();
 
@@ -118,7 +129,7 @@ public class HelloApplication extends Application {
         TableColumn addressColumn = new TableColumn("Address");
         TableColumn countryColumn = new TableColumn("Country");
 
-        listPane.setItems(data);
+        listPane.setItems(this.contacts.getContacts());
 
         listPane.getColumns().addAll(nameColumn, numberColumn, addressColumn, countryColumn);
 
@@ -164,6 +175,15 @@ public class HelloApplication extends Application {
         );
         searchPane.getChildren().addAll(searchInputsPane, contactListPane);
         return searchPane;
+    }
+
+    void clearText(Pane pane){
+        ObservableList<Node> children = pane.getChildren();
+        for (Node child : children){
+            if (child instanceof TextInputControl){
+                ((TextInputControl) child).clear();
+            }
+        }
     }
 
     public static void main(String[] args) {
