@@ -18,6 +18,7 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     private ContactsModel contacts;
+    EntryPane entryPane;
 
     enum Country {
         UK,
@@ -52,8 +53,8 @@ public class HelloApplication extends Application {
 
         root.setLeft(tabPane);
 
-        TilePane entryPane = new EntryPane(contacts);
-        entryTab.setContent(entryPane);
+        this.entryPane = new EntryPane(contacts);
+        entryTab.setContent(this.entryPane);
 
         TableView listPane = getListPane();
         listTab.setContent(listPane);

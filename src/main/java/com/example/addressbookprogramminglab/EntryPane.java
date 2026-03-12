@@ -9,10 +9,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.util.Pair;
 
 
 public class EntryPane extends TilePane {
     ContactsModel contacts = new ContactsModel();
+
+    TextField nameField = new TextField();
+    TextField addressField = new TextField();
+    TextField numberField = new TextField();
+    ComboBox<Country> countryField = new ComboBox<>();
+
+    private Contact selectedContact;
 
     enum Country {
         UK,
@@ -49,13 +57,13 @@ public class EntryPane extends TilePane {
         countryComboBox.getItems().addAll(HelloApplication.Country.values());
 
         inputPane.getChildren().add(nameLabel);
-        inputPane.getChildren().add(nameTextField);
+        inputPane.getChildren().add(this.nameField);
         inputPane.getChildren().add(numberLabel);
-        inputPane.getChildren().add(numberTextField);
+        inputPane.getChildren().add(this.numberField);
         inputPane.getChildren().add(addressLabel);
-        inputPane.getChildren().add(addressTextField);
+        inputPane.getChildren().add(this.addressField);
         inputPane.getChildren().add(countryLabel);
-        inputPane.getChildren().add(countryComboBox);
+        inputPane.getChildren().add(this.countryField);
 
         HBox buttonHBox = new HBox();
 
@@ -97,5 +105,19 @@ public class EntryPane extends TilePane {
                 ((TextInputControl) child).clear();
             }
         }
+    }
+
+    public void setFields(String name, String number, String address, String country) {
+        this.nameField.setText(name);
+        this.numberField.setText(number);
+        this.addressField.setText(address);
+    }
+
+    public void setFields(Contact contact) {
+        this.setFields(contact.getName(), contact.getNumber(), contact.getAddress(), contact. getCountry());
+    }
+
+    public void setSelectedContact(Contact contact){
+        this.selectedContact = contact;
     }
 }
