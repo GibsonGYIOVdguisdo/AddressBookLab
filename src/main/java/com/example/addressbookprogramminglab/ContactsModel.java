@@ -20,4 +20,14 @@ public class ContactsModel {
     public ObservableList<Contact> getContacts(){
         return data;
     }
+
+    public Contact removeContact(String name, String number){
+        for (int i = 0; i < data.size(); i++){
+            Contact contact = data.get(i);
+            if (contact.getName().equals(name) && contact.getNumber().equals(number)){
+                return data.remove(i);
+            }
+        }
+        return null;
+    }
 }

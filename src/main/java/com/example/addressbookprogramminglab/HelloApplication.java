@@ -66,6 +66,8 @@ public class HelloApplication extends Application {
     }
 
     TilePane getEntryPane(){
+        ContactsModel contacts = this.contacts;
+
         TilePane entryPane = new TilePane();
         entryPane.setPrefColumns(1);
 
@@ -106,6 +108,13 @@ public class HelloApplication extends Application {
         Button editButton = new Button("Edit");
         Button addButton = new Button("Add");
         Button deleteButton = new Button("Delete");
+        
+        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                contacts.removeContact(nameTextField.getText(), numberTextField.getText());
+            }
+        });
 
         buttonHBox.getChildren().add(clearButton);
         buttonHBox.getChildren().add(editButton);
