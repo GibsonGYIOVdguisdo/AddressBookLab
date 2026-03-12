@@ -52,7 +52,7 @@ public class HelloApplication extends Application {
 
         root.setLeft(tabPane);
 
-        TilePane entryPane = getEntryPane();
+        TilePane entryPane = new EntryPane(contacts);
         entryTab.setContent(entryPane);
 
         TableView listPane = getListPane();
