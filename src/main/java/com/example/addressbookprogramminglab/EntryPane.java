@@ -50,10 +50,10 @@ public class EntryPane extends TilePane {
 
         TextField nameTextField = nameField;
         TextField numberTextField = numberField;
-        TextField addressTextField = new TextField();
+        TextField addressTextField = addressField;
 
-        ComboBox<HelloApplication.Country> countryComboBox = new ComboBox<>();
-        countryComboBox.getItems().addAll(HelloApplication.Country.values());
+        ComboBox<Country> countryComboBox = countryField;
+        countryComboBox.getItems().addAll(Country.values());
 
         inputPane.getChildren().add(nameLabel);
         inputPane.getChildren().add(this.nameField);
@@ -70,11 +70,21 @@ public class EntryPane extends TilePane {
         clearButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                selectedContact = null;
                 clearText(inputPane);
             }
         });
 
-        Button editButton = new Button("Edit");
+        Button updateButton = new Button("Update");
+        updateButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                selectedContact.setName(nameTextField.getText());
+                selectedContact.setNumber(numberTextField.getText());
+                selectedContact.setCountry(String.valueOf(countryComboBox.getValue()));
+                selectedContact.setAddress(addressTextField.getText());
+            }
+        });
 
         Button addButton = new Button("Add");
         Button deleteButton = new Button("Delete");
@@ -83,11 +93,12 @@ public class EntryPane extends TilePane {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 contacts.removeContact(nameTextField.getText(), numberTextField.getText());
+                selectedContact = null;
             }
         });
 
         buttonHBox.getChildren().add(clearButton);
-        buttonHBox.getChildren().add(editButton);
+        buttonHBox.getChildren().add(updateButton);
         buttonHBox.getChildren().add(addButton);
         buttonHBox.getChildren().add(deleteButton);
 
@@ -110,10 +121,11 @@ public class EntryPane extends TilePane {
         this.nameField.setText(name);
         this.numberField.setText(number);
         this.addressField.setText(address);
+        this.countryField.setValue(Country.valueOf(country));
     }
 
     public void setFields(Contact contact) {
-        this.setFields(contact.getName(), contact.getNumber(), contact.getAddress(), contact. getCountry());
+        this.setFields(contact.getName(), contact.getNumber(), contact.getAddress(), contact.getCountry());
     }
 
     public void setSelectedContact(Contact contact){

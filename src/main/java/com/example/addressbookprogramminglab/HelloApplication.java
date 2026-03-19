@@ -1,6 +1,9 @@
 package com.example.addressbookprogramminglab;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -15,10 +18,12 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class HelloApplication extends Application {
     private ContactsModel contacts;
     EntryPane entryPane;
+    TableView listPane;
 
     enum Country {
         UK,
@@ -31,7 +36,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         this.contacts = new ContactsModel();
 
-        this.contacts.addContact(new Contact("Name3", "003", "Address 3", "Country 3"));
+        this.contacts.addContact(new Contact("Name3", "003", "Address 3", "UK"));
 
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root);
@@ -57,6 +62,7 @@ public class HelloApplication extends Application {
         entryTab.setContent(this.entryPane);
 
         TableView listPane = getListPane();
+        this.listPane = listPane;
         listTab.setContent(listPane);
 
         TilePane searchPane = getSearchPane();
@@ -65,6 +71,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
 
     TableView getListPane(){
 
@@ -79,8 +86,17 @@ public class HelloApplication extends Application {
 
         listPane.getColumns().addAll(nameColumn, numberColumn, addressColumn, countryColumn);
 
+        EntryPane entryPane = this.entryPane;
+        listPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                entryPane.setFields((Contact) t1);
+                entryPane.setSelectedContact((Contact) t1);
+            }
+        });
+
         nameColumn.setCellValueFactory(
-                new PropertyValueFactory<Contact,String>("name")
+                new PropertyValueFactory<Contact, String>("name")
         );
         numberColumn.setCellValueFactory(
                 new PropertyValueFactory<Contact,String>("number")

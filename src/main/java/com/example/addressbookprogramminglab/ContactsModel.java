@@ -13,6 +13,8 @@ import java.util.ListIterator;
 public class ContactsModel {
     ObservableList<Contact> data = FXCollections.observableArrayList();
 
+
+
     public void addContact(Contact contact) {
         data.add(contact);
     }

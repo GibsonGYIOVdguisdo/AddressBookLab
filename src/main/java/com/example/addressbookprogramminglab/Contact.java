@@ -31,6 +31,22 @@ public class Contact {
         return number.get();
     }
 
+    public SimpleStringProperty nameProperty() {
+        return name;
+    }
+
+    public SimpleStringProperty numberProperty() {
+        return number;
+    }
+
+    public SimpleStringProperty addressProperty() {
+        return address;
+    }
+
+    public SimpleStringProperty countryProperty() {
+        return country;
+    }
+
     public void setAddress(String address) {
         this.address.set(address);
     }
