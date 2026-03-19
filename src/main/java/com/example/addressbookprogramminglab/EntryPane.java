@@ -87,6 +87,22 @@ public class EntryPane extends TilePane {
         });
 
         Button addButton = new Button("Add");
+        addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Contact contact =
+                        new Contact(
+                                nameTextField.getText(),
+                                numberTextField.getText(),
+                                addressTextField.getText(),
+                                String.valueOf(countryComboBox.getValue()
+                                )
+                        );
+                selectedContact = contact;
+                contacts.addContact(contact);
+            }
+        });
+
         Button deleteButton = new Button("Delete");
 
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {

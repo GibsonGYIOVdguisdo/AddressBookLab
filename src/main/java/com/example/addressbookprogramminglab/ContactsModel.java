@@ -19,6 +19,10 @@ public class ContactsModel {
         data.add(contact);
     }
 
+    public void addContact(String name, String number, String address, String country) {
+        data.add(new Contact(name, number, address, country));
+    }
+
     public ObservableList<Contact> getContacts(){
         return data;
     }

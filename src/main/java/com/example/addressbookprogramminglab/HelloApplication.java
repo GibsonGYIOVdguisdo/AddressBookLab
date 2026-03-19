@@ -36,8 +36,6 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         this.contacts = new ContactsModel();
 
-        this.contacts.addContact(new Contact("Name3", "003", "Address 3", "UK"));
-
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root);
         stage.setTitle("Address Book");
@@ -71,7 +69,6 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
     TableView getListPane(){
 
