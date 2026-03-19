@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Pair;
 
-
 public class EntryPane extends TilePane {
     ContactsModel contacts = new ContactsModel();
 
@@ -49,8 +48,8 @@ public class EntryPane extends TilePane {
         Label addressLabel = new Label("Address: ");
         Label countryLabel = new Label("Country: ");
 
-        TextField nameTextField = new TextField();
-        TextField numberTextField = new TextField();
+        TextField nameTextField = nameField;
+        TextField numberTextField = numberField;
         TextField addressTextField = new TextField();
 
         ComboBox<HelloApplication.Country> countryComboBox = new ComboBox<>();
