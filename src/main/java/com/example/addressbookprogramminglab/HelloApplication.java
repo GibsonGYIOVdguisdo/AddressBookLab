@@ -87,8 +87,10 @@ public class HelloApplication extends Application {
         listPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
-                entryPane.setFields((Contact) t1);
-                entryPane.setSelectedContact((Contact) t1);
+                if (t1 != null) {
+                    entryPane.setFields((Contact) t1);
+                    entryPane.setSelectedContact((Contact) t1);
+                }
             }
         });
 
