@@ -13,12 +13,19 @@ public class Contact implements Serializable {
     transient SimpleStringProperty address;
     transient SimpleStringProperty country;
 
+    Contact(){
+        this.name = new SimpleStringProperty();
+        this.number = new SimpleStringProperty();
+        this.address = new SimpleStringProperty();
+        this.country = new SimpleStringProperty();
+    }
 
     Contact(String name, String number, String address, String country){
-        this.name = new SimpleStringProperty(name);
-        this.number = new SimpleStringProperty(number);
-        this.address = new SimpleStringProperty(address);
-        this.country = new SimpleStringProperty(country);
+        this();
+        this.setName(name);
+        this.setNumber(number);
+        this.setAddress(address);
+        this.setCountry(country);
     }
 
     public String getAddress() {
