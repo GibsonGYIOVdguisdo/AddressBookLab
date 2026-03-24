@@ -37,7 +37,9 @@ public class HeaderMenuBar extends MenuBar {
             public void handle(ActionEvent actionEvent) {
                 try {
                     File selectedFile = fileChooser.showOpenDialog(mainStage);
-                    contacts.loadFromFile(selectedFile);
+                    if (selectedFile != null) {
+                        contacts.loadFromFile(selectedFile);
+                    }
                 } catch (Exception e){
                     System.out.println(e);
                 }
@@ -49,7 +51,9 @@ public class HeaderMenuBar extends MenuBar {
             public void handle(ActionEvent actionEvent) {
                 try {
                     File selectedFile = fileChooser.showSaveDialog(mainStage);
-                    contacts.saveToFile(selectedFile);
+                    if (selectedFile != null) {
+                        contacts.saveToFile(selectedFile);
+                    }
                 } catch (Exception e){
                     System.out.println(e);
                 }
