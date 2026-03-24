@@ -64,38 +64,11 @@ public class HelloApplication extends Application {
         ListPane listPane = new ListPane(contacts, entryPane);
         listTab.setContent(listPane);
 
-        TilePane searchPane = getSearchPane();
+        TilePane searchPane = new SearchPane();
         searchTab.setContent(searchPane);
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    TilePane getSearchPane(){
-        TilePane searchPane = new TilePane();
-        TilePane searchInputsPane = new TilePane();
-        TableView contactListPane = new TableView();
-
-        searchPane.setPrefColumns(1);
-        searchInputsPane.setPrefColumns(2);
-
-        Label nameLabel = new Label("Name: ");
-        Label numberLabel = new Label("Number: ");
-        TextField nameTextField = new TextField();
-        TextField numberTextField = new TextField();
-        Button clearButton = new Button("Clear");
-        Button searchButton = new Button("Search");
-
-        searchInputsPane.getChildren().addAll(
-                nameLabel,
-                nameTextField,
-                numberLabel,
-                numberTextField,
-                clearButton,
-                searchButton
-        );
-        searchPane.getChildren().addAll(searchInputsPane, contactListPane);
-        return searchPane;
     }
 
     public static void main(String[] args) {
