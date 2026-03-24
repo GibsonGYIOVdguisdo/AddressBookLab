@@ -18,12 +18,11 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class HelloApplication extends Application {
     private ContactsModel contacts;
-    EntryPane entryPane;
-    TableView listPane;
 
     enum Country {
         UK,
@@ -34,8 +33,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        this.contacts = new ContactsModel();
-
+        ContactsModel contacts = new ContactsModel();
         BorderPane root = new BorderPane();
 
         MenuBar header = new HeaderMenuBar(contacts, stage);
@@ -60,11 +58,10 @@ public class HelloApplication extends Application {
 
         root.setLeft(tabPane);
 
-        this.entryPane = new EntryPane(contacts);
-        entryTab.setContent(this.entryPane);
+        EntryPane entryPane = new EntryPane(contacts);
+        entryTab.setContent(entryPane);
 
-        TableView listPane = getListPane();
-        this.listPane = listPane;
+        ListPane listPane = new ListPane(contacts, entryPane);
         listTab.setContent(listPane);
 
         TilePane searchPane = getSearchPane();
@@ -72,47 +69,6 @@ public class HelloApplication extends Application {
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    TableView getListPane(){
-
-        TableView listPane = new TableView();
-
-        TableColumn nameColumn = new TableColumn("Name");
-        TableColumn numberColumn = new TableColumn("Number");
-        TableColumn addressColumn = new TableColumn("Address");
-        TableColumn countryColumn = new TableColumn("Country");
-
-        listPane.setItems(this.contacts.getContacts());
-
-        listPane.getColumns().addAll(nameColumn, numberColumn, addressColumn, countryColumn);
-
-        EntryPane entryPane = this.entryPane;
-        listPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object o, Object t1) {
-                if (t1 != null) {
-                    entryPane.setFields((Contact) t1);
-                    entryPane.setSelectedContact((Contact) t1);
-                }
-            }
-        });
-
-        nameColumn.setCellValueFactory(
-                new PropertyValueFactory<Contact, String>("name")
-        );
-        numberColumn.setCellValueFactory(
-                new PropertyValueFactory<Contact,String>("number")
-        );
-        addressColumn.setCellValueFactory(
-                new PropertyValueFactory<Contact,String>("address")
-        );
-        countryColumn.setCellValueFactory(
-                new PropertyValueFactory<Contact,String>("country")
-        );
-
-
-        return listPane;
     }
 
     TilePane getSearchPane(){
@@ -140,15 +96,6 @@ public class HelloApplication extends Application {
         );
         searchPane.getChildren().addAll(searchInputsPane, contactListPane);
         return searchPane;
-    }
-
-    void clearText(Pane pane){
-        ObservableList<Node> children = pane.getChildren();
-        for (Node child : children){
-            if (child instanceof TextInputControl){
-                ((TextInputControl) child).clear();
-            }
-        }
     }
 
     public static void main(String[] args) {
