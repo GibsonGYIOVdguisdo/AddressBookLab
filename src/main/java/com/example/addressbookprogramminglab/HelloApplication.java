@@ -36,10 +36,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         this.contacts = new ContactsModel();
 
-
         BorderPane root = new BorderPane();
 
-        MenuBar header = new HeaderMenuBar();
+        MenuBar header = new HeaderMenuBar(contacts, stage);
         root.setTop(header);
 
         Scene scene = new Scene(root);

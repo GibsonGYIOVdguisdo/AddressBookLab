@@ -22,16 +22,16 @@ public class ContactsModel implements Serializable {
         data.addAll(contacts);
     }
 
-    public void saveToFile() throws IOException {
-        FileOutputStream fileOut = new FileOutputStream("file.ser");
+    public void saveToFile(File file) throws IOException {
+        FileOutputStream fileOut = new FileOutputStream(file);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(this);
         out.close();
         fileOut.close();
     }
 
-    public void loadFromFile() throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream("file.ser");
+    public void loadFromFile(File file) throws IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(file);
         ObjectInputStream in = new ObjectInputStream(fileIn);
         this.data.setAll(((ContactsModel) in.readObject()).getContacts().toArray(new Contact[0]));
         in.close();
