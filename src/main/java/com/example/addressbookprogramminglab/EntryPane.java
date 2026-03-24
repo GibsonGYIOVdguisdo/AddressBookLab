@@ -95,8 +95,7 @@ public class EntryPane extends TilePane {
                                 nameTextField.getText(),
                                 numberTextField.getText(),
                                 addressTextField.getText(),
-                                String.valueOf(countryComboBox.getValue()
-                                )
+                                countryComboBox.getValue() != null ? String.valueOf(countryComboBox.getValue()) : ""
                         );
                 selectedContact = contact;
                 contacts.addContact(contact);
