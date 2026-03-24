@@ -39,7 +39,7 @@ public class HelloApplication extends Application {
 
         BorderPane root = new BorderPane();
 
-        MenuBar header = this.getHeaderMenuBar();
+        MenuBar header = new HeaderMenuBar();
         root.setTop(header);
 
         Scene scene = new Scene(root);
@@ -73,21 +73,6 @@ public class HelloApplication extends Application {
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    MenuBar getHeaderMenuBar(){
-        MenuBar menubar = new MenuBar();
-        menubar.getMenus().add(this.getFileMenu());
-        return menubar;
-    }
-
-    Menu getFileMenu(){
-        Menu menu = new Menu("File");
-        MenuItem save = new MenuItem("Save");
-        MenuItem load = new MenuItem("Load");
-        menu.getItems().add(save);
-        menu.getItems().add(load);
-        return menu;
     }
 
     TableView getListPane(){
