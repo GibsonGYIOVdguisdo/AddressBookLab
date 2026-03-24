@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.addressbookprogramminglab/com.example.addressbookprogramminglab.HelloApplication
+                                com.example.addressbookprogramminglab/com.example.addressbookprogramminglab.AddressBookApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
