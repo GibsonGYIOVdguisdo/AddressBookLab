@@ -2,11 +2,17 @@ package com.example.addressbookprogramminglab;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class Contact {
-    SimpleStringProperty name;
-    SimpleStringProperty number;
-    SimpleStringProperty address;
-    SimpleStringProperty country;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Contact implements Serializable {
+    transient SimpleStringProperty name;
+    transient SimpleStringProperty number;
+    transient SimpleStringProperty address;
+    transient SimpleStringProperty country;
+
 
     Contact(String name, String number, String address, String country){
         this.name = new SimpleStringProperty(name);
@@ -61,5 +67,21 @@ public class Contact {
 
     public void setNumber(String number) {
         this.number.set(number);
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeUTF(this.getName() != null ? this.getName() : "");
+        out.writeUTF(this.getNumber() != null ? this.getNumber() : "");
+        out.writeUTF(this.getAddress() != null ? this.getAddress() : "");
+        out.writeUTF(this.getCountry() != null ? this.getCountry() : "");
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        this.name = new SimpleStringProperty(in.readUTF());
+        this.number = new SimpleStringProperty(in.readUTF());
+        this.address = new SimpleStringProperty(in.readUTF());
+        this.country = new SimpleStringProperty(in.readUTF());
     }
 }
